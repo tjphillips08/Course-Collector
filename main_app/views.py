@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View # <- View class to handle requests
+from django.urls import reverse
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views.generic.base import TemplateView
 from .models import Course, Member, Club
