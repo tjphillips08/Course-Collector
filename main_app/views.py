@@ -87,7 +87,7 @@ class CourseCreate(CreateView):
 
 class CourseDetail(DetailView):
     model = Course
-    template_name = "Course_detail.html"
+    template_name = "course_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
