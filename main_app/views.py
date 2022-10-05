@@ -101,7 +101,7 @@ class CourseUpdate(UpdateView):
     success_url = "/Courses/"
 
     def get_success_url(self):
-        return reverse('Course_detail', kwargs={'pk': self.object.pk})
+        return reverse('course_detail', kwargs={'pk': self.object.pk})
 
 class CourseDelete(DeleteView):
     model = Course
