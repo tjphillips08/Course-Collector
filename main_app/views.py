@@ -30,6 +30,7 @@ class Home(TemplateView):
 class About(TemplateView):
     template_name = "about.html"
 
+# random comment
 # Create your views here.
  #adds artist class for mock database data
 # class Course:
