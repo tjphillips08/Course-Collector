@@ -98,7 +98,7 @@ class CourseUpdate(UpdateView):
     model = Course
     fields = ['name', 'img', 'address', 'website']
     template_name = "course_update.html"
-    success_url = "/Courses/"
+    success_url = "/courses/"
 
     def get_success_url(self):
         return reverse('course_detail', kwargs={'pk': self.object.pk})
