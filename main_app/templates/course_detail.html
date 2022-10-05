@@ -1,0 +1,127 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div class="detail__img">
+  <img src="{{course.img}}" alt="{{course.name}}" />
+</div>
+<div class="detail__name">
+  
+  <h1 class="title">{{artist.name}}</h1>
+</div>
+    <div class="detail__container">
+        <!-- inside container -->
+    <div class="detail__members mb-5">
+
+        <h3 class="title is-3">Members</h3>
+        {% for member in course.members.all %}
+        <div class="member">
+        <span>{{forloop.counter}}</span>
+        <span><b>{{member.name}}</b></span>
+        <span>{{member.length}}</span>
+        <span>{{member.email}}</span>
+        <span>{{member.course}}</span>
+        </div>
+        <span>
+          <div class="dropdown">
+            <div class="dropdown-trigger">
+              <button
+                class="button"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu"
+              >
+                <span>Add to Club</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                {% for club in clubs %}
+            <!-- each playlist becomes a drop
+            down item with the ids needed to add to the join table  -->
+                <a
+                  href="{% url 'club_member_assoc' club.pk member.pk %}?assoc=add"
+                  class="dropdown-item"
+                >
+                  {{club.title}}
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </span>
+
+        {% empty %}
+            <article class="message">
+                <div class="message-header">
+                    <p>No Members Currently</p>
+                </div>
+            </article>
+
+        {% endfor %}
+    </div>
+    <!-- inside detail songs element below the header -->
+
+<!-- Here you can see the action we provided
+     is to the song_create route with the artist pk -->
+    <form class="mb-5" action="{% url 'member_create' course.pk %}" method="post">
+        {% csrf_token %}
+        <div class="field has-addons">
+        <div class="control">
+            <input
+            class="input"
+            type="text"
+            name="name"
+            placeholder="Name"
+            required
+            />
+        </div>
+        <div class="control">
+            <input
+            class="input"
+            type="number"
+            name="length"
+            placeholder="# of Years"
+            min="0"
+            required
+            />
+        </div>
+        <div class="control">
+            <input
+            class="input"
+            type="text"
+            name="email"
+            placeholder="Email Address"
+            required
+            
+            />
+        </div>
+      
+        <div class="control">
+            <input class="button is-primary" type="submit" value="Add Member" />
+        </div>
+        </div>
+    </form>
+
+<!-- before the for loop for songs -->
+
+    <!--  above about section  -->
+    <a href="{% url 'course_update' course.pk %}" class="button is-info">
+        <span class="icon">
+          <i class="fas fa-edit"></i>
+        </span>
+      </a>
+    <a href="{% url 'course_delete' course.pk %}" class="button is-danger">
+      <span class="icon">
+        <i class="fas fa-trash-alt"></i>
+      </span>
+    </a>
+  </div>
+  <div class="detail__about">
+    <h4 class="title is-4">Info</h4>
+    <p>{{course.address}}</p>
+    <p>{{course.website}}</p>
+  </div>
+</div>
+
+{% endblock %}

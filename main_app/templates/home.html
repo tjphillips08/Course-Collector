@@ -1,0 +1,37 @@
+
+{% extends 'base.html' %} 
+{% block content %}
+<div class="home__clubs">
+    {% for club in clubs %}
+
+        <div class="playlist mb-5">
+            <h3 class="title is-3 has-text-success">{{club.title}}</h3>
+            <hr />
+
+            {% for member in club.members.all %}
+
+                <div class="member">
+                    <span>{{forloop.counter}}</span>
+                    <span><b>{{member.name}}</b></span>
+                    <span>{{member.length}}</span>
+                    <span>{{member.email}}</span>
+                    <span>{{member.course}}</span>
+                    <span>
+                        <!--   Here we are creating an anchor
+                        tag that when clicked will hit our new
+                        route and send a query to remove the song     -->
+                        <a href="{% url 'club_member_assoc' club.pk member.pk %}?assoc=remove" class="button is-danger is-outlined">
+                        <span class="icon is-small">
+                            <i class="fas fa-times"></i>
+                        </span>
+                        </a>
+                    </span>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% empty %} 
+        <div class="playlist mb-5">"There are no members in this club"</div>
+    {% endfor %}
+</div>
+{% endblock %}
